@@ -1,0 +1,30 @@
+[project]
+name = "graphiti"
+version = "0.1.0"
+description = "Graphiti MCP Server"
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" } # Siempre es buena práctica
+authors = [{ name = "Tu Nombre", email = "tu@email.com" }]
+
+# Dependencias de runtime
+dependencies = [
+    "graphiti-core==0.18.7",
+    "graphiti-core[google-genai]", # Dependencia con extras
+    "fastmcp==2.12.3",
+    # Otras dependencias de producción (ej. cliente Neo4j)
+    "neo4j==5.28.2",
+]
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+# Configuración crucial para el ejecutable del servidor:
+# Define el comando 'mcp-neo4j' que apunta a la función main() dentro de mcp-neo4j/main.py
+[project.scripts]
+graphiti = "graphiti.main:main"
+
+[tool.hatch.build.targets.wheel]
+# Indica a Hatchling que el código fuente del paquete se encuentra en el directorio 'mcp-neo4j'
+packages = ["graphiti"]
